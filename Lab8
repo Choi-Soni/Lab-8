@@ -1,0 +1,144 @@
+                                                                                   #1.1
+user_input = input("Enter a word or phrase: ").lower()  
+created_list = list(user_input)
+print("Created list is:", created_list)
+
+                                                                                 #1.2
+word = input("Enter a word: ").strip().lower()
+
+input_list = [(char, word.count(char)) for char in set(word)]
+
+list_vow = []
+list_cons = []
+list_sym = []
+
+vowels = ['a', 'e', 'i', 'o', 'u']
+
+for char, count in input_list:
+    if char in vowels:
+        list_vow.append((char, count))
+    elif char.isalpha():
+        list_cons.append((char, count))
+    else:  
+        list_sym.append((char, count))
+
+print("list_vow =", list_vow)
+print("list_cons =", list_cons)
+print("list_sym =", list_sym)
+
+                                                                             #2.1
+name = input("Имя студента: ").strip()
+assignments = input("Assignments ").split(',')
+labs = input( "labs").split(',')
+tests = input("tests").split(',')
+
+assignments = [int(x.strip()) for x in assignments]
+labs = [float(x.strip()) for x in labs]
+tests = [int(x.strip()) for x in tests]
+
+student = {
+    'name': name,
+    'assignment': assignments,
+    'lab': labs,
+    'test': tests
+}
+
+print(student)
+
+                                                                           #2.2
+
+name = input("Enter student's name: ").strip()
+assignments = input("assignments").split(',')
+labs = input ("labs").split(',')
+tests = input("tests").split(',')
+
+assignments = [int(x.strip()) for x in assignments]
+labs = [float(x.strip()) for x in labs]
+tests = [int(x.strip()) for x in tests]
+
+student = {
+    'name': name,
+    'assignment': assignments,
+    'lab': labs,
+    'test': tests
+}
+
+submission_count = len(student['assignment']) + len(student['lab']) + len(student['test'])
+
+submission_check = {student['name']: submission_count}
+
+print(submission_check)
+
+                                                                                                           #2.3
+name = input("Enter student's name: ").strip()
+assignments = input("assignments").split(',')
+labs = input ("labs").split(',')
+tests = input ("tests").split(',')
+
+assignments = [int(x.strip()) for x in assignments]
+labs = [float(x.strip()) for x in labs]
+tests = [int(x.strip()) for x in tests]
+
+student = {
+    'name': name,
+    'assignment': assignments,
+    'lab': labs,
+    'test': tests
+}
+
+submission_count = len(student['assignment']) + len(student['lab']) + len(student['test'])
+
+submission_check = {student['name']: submission_count}
+
+final_grade = 0
+if submission_count >= 4:
+    avg_assignment = sum(assignments) / len(assignments) if assignments else 0
+    avg_lab = sum(labs) / len(labs) if labs else 0
+    avg_test = sum(tests) / len(tests) if tests else 0
+    final_grade = 0.3 * avg_assignment + 0.5 * avg_lab + 0.2 * avg_test
+
+student['final_grade'] = round(final_grade, 2)
+
+print(student)
+
+                                                                                                                 #2.4
+def input_student_data():
+    name = input("Student name: ").strip()
+    
+    assignments = [int(x) for x in input("Scores for assignments (через запятую): ").split(',') if x.strip()]
+    labs = [float(x) for x in input("Scores for labs (через запятую): ").split(',') if x.strip()]
+    tests = [int(x) for x in input("Scores for tests (через запятую): ").split(',') if x.strip()]
+    
+    submission_count = len(assignments) + len(labs) + len(tests)
+    
+    final_grade = (
+        0.3 * (sum(assignments) / len(assignments) if assignments else 0) +
+        0.5 * (sum(labs) / len(labs) if labs else 0) +
+        0.2 * (sum(tests) / len(tests) if tests else 0)
+    ) if submission_count >= 4 else 0
+
+    return {
+        'name': name,
+        'assignment': assignments,
+        'lab': labs,
+        'test': tests,
+        'final_grade': round(final_grade, 2)
+    }
+
+while True:
+    try:
+        num_students = int(input("Enter the number of students: "))
+        if num_students < 1:
+            print("Please enter a positive integer.")
+            continue
+        break
+    except ValueError:
+        print("Invalid input. Please enter a valid number.")
+
+students = {}
+for _ in range(num_students):
+    student = input_student_data()
+    students[student['name']] = {key: student[key] for key in student if key != 'name'}
+
+
+print("students =", students)
