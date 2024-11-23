@@ -1,0 +1,93 @@
+№1
+a = input("Введите элементы списка через пробел: ").split()
+
+result = [int(x) for x in a if int(x) < 5]
+print("Элементы меньше 5:", result)
+
+№2
+a = input("Введите элементы первого списка через пробел: ").split()
+b = input("Введите элементы второго списка через пробел: ").split()
+
+a = [int(x) for x in a]
+b = [int(x) for x in b]
+result = list(set(a) & set(b))
+print("Общие элементы:", result)
+
+№3
+import operator
+
+d = {}
+n = int(input("Сколько пар ключ-значение вы хотите ввести? "))
+for _ in range(n):
+    key_value = input("Введите ключ и значение через пробел: ").split()
+    key = int(key_value[0])
+    value = int(key_value[1])
+    d[key] = value
+
+sorted_asc = dict(sorted(d.items(), key=operator.itemgetter(1)))
+print("По возрастанию:", sorted_asc)
+
+sorted_desc = dict(sorted(d.items(), key=operator.itemgetter(1), reverse=True))
+print("По убыванию:", sorted_desc)
+
+№4
+dict_count = int(input("Сколько словарей вы хотите объединить? "))
+merged_dict = {}
+
+for i in range(dict_count):
+    print(f"Введите пары ключ-значение для словаря {i+1}:")
+    n = int(input("Сколько пар ключ-значение в этом словаре? "))
+    for _ in range(n):
+        key_value = input("Введите ключ и значение через пробел: ").split()
+        key = int(key_value[0])
+        value = int(key_value[1])
+        merged_dict[key] = value
+
+print("Объединённый словарь:", merged_dict)
+
+№5
+my_dict = {}
+n = int(input("Сколько пар ключ-значение вы хотите ввести? "))
+for _ in range(n):
+    key = input("Введите ключ (строка): ")
+    value = int(input("Введите значение (целое число): "))
+    my_dict[key] = value
+
+top_keys = sorted(my_dict, key=my_dict.get, reverse=True)[:3]
+print("Три ключа с наибольшими значениями:", top_keys)
+
+№6
+def int_to_string(number, base):
+    if number == 0:
+        return "0"
+    digits = "0123456789ABCDEF"
+    result = ""
+    while number:
+        result = digits[number % base] + result
+        number //= base
+    return result
+
+number = int(input("Введите число: "))
+base = int(input("Введите систему счисления (2-16): "))
+
+converted = int_to_string(number, base)
+print(f"Число {number} в системе счисления {base}: {converted}")
+
+№7
+def pascal_triangle(n):
+    triangle = [[1]]
+    for i in range(1, n):
+        row = [1]
+        for j in range(1, i):
+            row.append(triangle[i - 1][j - 1] + triangle[i - 1][j])
+        row.append(1)
+        triangle.append(row)
+    return triangle
+
+n = int(input("Введите количество строк треугольника Паскаля: "))
+
+triangle = pascal_triangle(n)
+
+print("Треугольник Паскаля:")
+for i in range(n):
+    print(" " * (n - i - 1), *triangle[i])
